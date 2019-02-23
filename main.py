@@ -47,8 +47,8 @@ class SentimentAnalysis:
         snegative = 0
         neutral = 0
 
-        geo = Generate_GeoipMap()
-        geo.generate_geoipmap(self.tweetsHashtag)
+        # geo = Generate_GeoipMap()
+        # geo.generate_geoipmap(self.tweetsHashtag)
 
         # iterating through tweets fetched
         for tweet in self.tweets:
