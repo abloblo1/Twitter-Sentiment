@@ -16,7 +16,7 @@ def index():
 
 @app.route("/map", methods=['GET','POST'])
 def map():
-	return render_template('map.html')
+	return render_template('twittermap.html')
 
 @app.route('/analyse',methods=['GET','POST'])
 def analyse():

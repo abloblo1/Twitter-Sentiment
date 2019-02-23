@@ -3,6 +3,7 @@ from textblob import TextBlob
 import matplotlib.pyplot as plt
 from twitter import Generate_GeoipMap
 from itertools import tee
+import threading
 
 class SentimentAnalysis:
     subjectivity_result = None
@@ -49,6 +50,10 @@ class SentimentAnalysis:
 
         # geo = Generate_GeoipMap()
         # geo.generate_geoipmap(self.tweetsHashtag)
+
+        # thread = threading.Thread(target=geo.generate_geoipmap, args=(self.tweetsHashtag))
+        # thread.daemon = True
+        # thread.start()
 
         # iterating through tweets fetched
         for tweet in self.tweets:
