@@ -1,9 +1,10 @@
 import sys,tweepy,csv,re
 from textblob import TextBlob
 import matplotlib.pyplot as plt
-from twitter import Generate_GeoipMap
 from itertools import tee
 import threading
+import folium
+from geopy.geocoders import Nominatim
 
 class SentimentAnalysis:
     subjectivity_result = None
@@ -48,8 +49,8 @@ class SentimentAnalysis:
         snegative = 0
         neutral = 0
 
-        geo = Generate_GeoipMap()
-        geo.generate_geoipmap(self.tweetsHashtag)
+        mapvar = folium.Map(location=[45.38, -121.67], zoom_start=3)
+        geolocator = Nominatim(user_agent = 'tweet_plot')
 
         # thread = threading.Thread(target=geo.generate_geoipmap, args=(self.tweetsHashtag))
         # thread.daemon = True
@@ -57,6 +58,14 @@ class SentimentAnalysis:
 
         # iterating through tweets fetched
         for tweet in self.tweets:
+            tweet_location = self.cleanTweet(tweet.user.location)
+            try:
+                location = geolocator.geocode(tweet_location)
+            except:
+                location = "NULL"
+
+            icon = folium.Icon()
+
             #Append to temp so that we can store in csv later. I use encode UTF-8
             self.tweetText.append(self.cleanTweet(tweet.text).encode('utf-8'))
             # print (tweet.text.translate(non_bmp_map))    #print tweet's text
@@ -66,19 +75,33 @@ class SentimentAnalysis:
 
             if (analysis.sentiment.polarity == 0):  # adding reaction of how people are reacting to find average later
                 neutral += 1
+                icon = folium.Icon(color='gray')
             elif (analysis.sentiment.polarity > 0 and analysis.sentiment.polarity <= 0.3):
                 wpositive += 1
+                icon = folium.Icon(color='lightgreen')
             elif (analysis.sentiment.polarity > 0.3 and analysis.sentiment.polarity <= 0.6):
                 positive += 1
+                icon = folium.Icon(color='green')
             elif (analysis.sentiment.polarity > 0.6 and analysis.sentiment.polarity <= 1):
                 spositive += 1
+                icon = folium.Icon(color='darkgreen')
             elif (analysis.sentiment.polarity > -0.3 and analysis.sentiment.polarity <= 0):
                 wnegative += 1
+                icon = folium.Icon(color='lightred')
             elif (analysis.sentiment.polarity > -0.6 and analysis.sentiment.polarity <= -0.3):
                 negative += 1
+                icon = folium.Icon(color='red')
             elif (analysis.sentiment.polarity > -1 and analysis.sentiment.polarity <= -0.6):
                 snegative += 1
+                icon = folium.Icon(color='darkred')
 
+            try:
+                folium.Marker(location=[location.latitude, location.longitude], icon=icon).add_to(mapvar)
+            except:
+                pass
+
+        print("printed correctly")
+        mapvar.save('twittermap.html')
 
         # Write to csv and close csv file
         csvWriter.writerow(self.tweetText)
