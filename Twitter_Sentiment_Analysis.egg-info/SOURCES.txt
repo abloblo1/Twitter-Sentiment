@@ -1,0 +1,7 @@
+README.md
+setup.py
+Twitter_Sentiment_Analysis.egg-info/PKG-INFO
+Twitter_Sentiment_Analysis.egg-info/SOURCES.txt
+Twitter_Sentiment_Analysis.egg-info/dependency_links.txt
+Twitter_Sentiment_Analysis.egg-info/requires.txt
+Twitter_Sentiment_Analysis.egg-info/top_level.txt

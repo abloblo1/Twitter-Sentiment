@@ -1,0 +1,20 @@
+<meta charset="utf-8">   <title>Chart.js </title>      <!-- import plugin script -->   <script src="static/Chart.min.js"></script>
+<h1>Flask Chart.js</h1>
+<!-- bar chart canvas element --><canvas id="chart" width="600" height="400"></canvas>
+<script><br />
+   var pieData = [<br />
+            {% for item,label,colors in set %}<br />
+                {<br />
+                    value: {{item}},<br />
+                    label: "{{label}}",<br />
+                    color : "{{colors}}"<br />
+                },<br />
+                {% endfor %}</p>
+<p>         ];</p>
+<p>   // get bar chart canvas<br />
+   var mychart = document.getElementById("chart").getContext("2d");</p>
+<p>   steps = 10<br />
+   max = 10<br />
+   // draw pie chart<br />
+   new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);</p>
+<p></script>
