@@ -49,8 +49,8 @@ class SentimentAnalysis:
         snegative = 0
         neutral = 0
 
-        mapvar = folium.Map(location=[45.38, -121.67], zoom_start=3)
-        geolocator = Nominatim(user_agent = 'tweet_plot')
+        # geo = Generate_GeoipMap()
+        # geo.generate_geoipmap(self.tweetsHashtag)
 
         # thread = threading.Thread(target=geo.generate_geoipmap, args=(self.tweetsHashtag))
         # thread.daemon = True
