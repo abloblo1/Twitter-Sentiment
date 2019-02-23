@@ -11,26 +11,24 @@ class SentimentAnalysis:
         self.tweetText = []
         self.tweetsHashtag = []
 
-    def DownloadData(self):
+    def DownloadData(self, searchTerm, NoOfTerms):
+        self.searchTerm = searchTerm
         # authenticating
-
-        consumerKey = 'n3NkFrJMCY5tMmfUktmQDdDIF'
-        consumerSecret = 'YEOQqWJf29kxQCblLl9V3K4lSqNBVn85FeOWoTv0ggW5FIpwod'
-        accessToken = '2169386251-O8ul0zWGSalSmwcLID19FyaSkgqBNMC6NaiVvXa'
-        accessTokenSecret = 'HSksv5dOzJHw4BtYrOWqrEPz2s5uB65k85q4TDFmAeYn7'
-
+        consumerKey = 'TRl8IXvOBywGDaUgzEDJRWkhY'
+        consumerSecret = 'LEHnaQt6caoWPvyAqtOCqWR8ItCrkgBLCm0mfWkbIzegf3KP6E'
+        accessToken = '1099183311866523648-OEDMwZt1MWONy8HOblT3koFdDCoRGi'
+        accessTokenSecret = '1PrecA5zKi1y8rFgiRYyqCtwtEJwmovTbXX21h9D7xKtV'
         auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
         auth.set_access_token(accessToken, accessTokenSecret)
         api = tweepy.API(auth)
 
         # input for term to be searched and how many tweets to search
-        searchTerm = input("Enter Keyword/Tag to search about: ")
-        NoOfTerms = int(input("Enter how many tweets to search: "))
+        # searchTerm = input("Enter Keyword/Tag to search about: ")
+        # NoOfTerms = int(input("Enter how many tweets to search: "))
 
         # searching for tweets
-        self.tweets = tweepy.Cursor(api.search, q=searchTerm, lang = "en").items(NoOfTerms)
+        self.tweets = tweepy.Cursor(api.search, q=searchTerm, lang = "en").items(int(NoOfTerms))
         self.tweets, self.tweetsHashtag = tee(self.tweets)
-        # NoOfTerms = int(input("Enter how many tweets to search: "))
 
         # Open/create a file to append data to
         csvFile = open('result.csv', 'a')
@@ -109,8 +107,8 @@ class SentimentAnalysis:
         #     print("Negative")
         # elif (polarity > -1 and polarity <= -0.6):
         #     print("Strongly Negative")
-        #
-        #
+
+
         # print("Detailed Report: ")
         # print(str(positive) + "% people thought it was positive")
         # print(str(wpositive) + "% people thought it was weakly positive")
@@ -120,7 +118,7 @@ class SentimentAnalysis:
         # print(str(snegative) + "% people thought it was strongly negative")
         # print(str(neutral) + "% people thought it was neutral")
 
-        # self.subjectivity_result = str(positive) + "% people thought it was positive\n" + str(wpositive) + "% people thought it was weakly positive\n" + str(spositive) + "% people thought it was strongly positive\n" + str(negative) + "% people thought it was negative\n" + str(wnegative) + "% people thought it was weakly negative\n" + str(snegative) + "% people thought it was strongly negative\n" + str(neutral) + "% people thought it was neutral"
+        self.subjectivity_result = str(positive) + "% people thought it was positive\n" + str(wpositive) + "% people thought it was weakly positive\n" + str(spositive) + "% people thought it was strongly positive\n" + str(negative) + "% people thought it was negative\n" + str(wnegative) + "% people thought it was weakly negative\n" + str(snegative) + "% people thought it was strongly negative\n" + str(neutral) + "% people thought it was neutral"
         self.plotPieChart(positive, wpositive, spositive, negative, wnegative, snegative, neutral, searchTerm, NoOfTerms)
 
 

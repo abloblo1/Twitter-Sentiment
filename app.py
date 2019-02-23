@@ -14,9 +14,9 @@ Bootstrap(app)
 def index():
 	return render_template('index.html')
 
-@app.route("/chart", methods=['GET,''POST'])
-def chart():
-	return render_template('chart.html', set=zip(values, labels, colors))
+@app.route("/map", methods=['GET,''POST'])
+def map():
+	return render_template('map.html')
 
 @app.route('/analyse',methods=['GET','POST'])
 def analyse():
