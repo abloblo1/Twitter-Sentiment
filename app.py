@@ -14,9 +14,9 @@ Bootstrap(app)
 def index():
 	return render_template('index.html')
 
-@app.route("/map", methods=['GET,''POST'])
+@app.route("/map", methods=['GET','POST'])
 def map():
-	return render_template('map.html')
+	return render_template('twittermap.html')
 
 @app.route('/analyse',methods=['GET','POST'])
 def analyse():
