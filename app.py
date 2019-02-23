@@ -14,11 +14,13 @@ Bootstrap(app)
 def index():
 	return render_template('index.html')
 
-@app.route("/chart")
+@app.route("/chart", methods=['GET,''POST'])
 def chart():
 	return render_template('chart.html', set=zip(values, labels, colors))
-@app.route('/analyse',methods=['GET,''POST'])
+
+@app.route('/analyse',methods=['GET','POST'])
 def analyse():
+	print(":()")
 	sa = SentimentAnalysis()
 	start = time.time()
 	if request.method == 'POST':
