@@ -1,4 +1,6 @@
-venv/*
-env/*
+venv/
+.idea/
+env/
+data/
 result.csv
 twittermap.html
